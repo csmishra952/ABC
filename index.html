@@ -29,25 +29,25 @@
         .modal { transition: opacity 0.3s ease; }
         .header { margin: 30px; }
         @keyframes fade-in {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-    animation: fade-in 1s ease-out forwards;
-}
-@keyframes bounce-slow {
-    0%, 100% { transform: scale(1.05) translateY(0); }
-    50% { transform: scale(1.1) translateY(-6px); }
-}
-.animate-bounce-slow {
-    animation: bounce-slow 2.5s infinite;
-}
-.drop-shadow-3xl {
-    filter: drop-shadow(3px 5px 8px rgba(0, 0, 0, 0.5));
-}
-.header{
-    border-top-left-radius: 10px;
-}   
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out forwards;
+        }
+        @keyframes bounce-slow {
+            0%, 100% { transform: scale(1.05) translateY(0); }
+            50% { transform: scale(1.1) translateY(-6px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2.5s infinite;
+        }
+        .drop-shadow-3xl {
+            filter: drop-shadow(3px 5px 8px rgba(0, 0, 0, 0.5));
+        }
+        .header {
+            border-top-left-radius: 10px;
+        }
     </style>
 </head>
 <body class="bg-red-50 min-h-screen flex flex-col font-sans">
@@ -111,8 +111,7 @@
                     </button>
                     <a href="http://127.0.0.1:5000/hospital_inventory" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg flex items-center justify-center transition-all duration-300 ease-in-out hover:bg-green-600">
                         Hospital Blood Inventory
-                      </a>
-                      
+                    </a>
                 </div>
             </form>
         </section>
@@ -333,7 +332,7 @@
                 recipientMarker.openPopup();
 
                 if (matchData.status === 'success' && matchData.matches.length > 0) {
-                    let results = `<div class="grid gap-6">`;
+                    let results = '';
                     matchData.matches.forEach(match => {
                         if (isNaN(match.donor_latitude) || isNaN(match.donor_longitude)) {
                             console.warn(`Invalid donor coordinates for Donor ${match.donor_id}: [${match.donor_latitude}, ${match.donor_longitude}]`);
@@ -353,7 +352,7 @@
                                 <p class="text-gray-600"><strong>AI Match Score:</strong> ${(match.match_quality * 100).toFixed(2)}%</p>
                                 <p class="text-gray-600"><strong>SMS Status:</strong> ${matchData.sms_status}</p>
                                 <p class="text-gray-600"><strong>Contact:</strong> <span id="phone-${match.donor_id}">${match.masked_phone}</span></p>
-                                <div class="mt-3 flex gap-2">
+                                <div class="mt-3 flex gap-2 flex-wrap">
                                     <button class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 btn contact-btn" data-token="${match.contact_token}" data-donor-id="${match.donor_id}" ${match.masked_phone === 'Unknown' ? 'disabled' : ''}>Contact Donor</button>
                                     <button class="bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 btn schedule-btn" data-donor-id="${match.donor_id}" ${match.availability_status.includes('Unavailable') ? 'disabled' : ''}>Schedule Donation</button>
                                     <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 btn history-btn" data-donor-id="${match.donor_id}">View History</button>
@@ -368,7 +367,6 @@
                         }).addTo(map).bindPopup(`Donor ${match.donor_id}: ${match.blood_type}`);
                         bounds.push([match.donor_latitude, match.donor_longitude]);
                     });
-                    results += `</div>`;
                     resultsDiv.innerHTML = results;
 
                     document.querySelectorAll('.contact-btn').forEach(button => {
@@ -584,5 +582,6 @@
             }
         }
     </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'936c3fcf8ae65080',t:'MTc0NTczNTE5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
